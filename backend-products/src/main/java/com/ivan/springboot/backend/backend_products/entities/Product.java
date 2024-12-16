@@ -1,5 +1,7 @@
 package com.ivan.springboot.backend.backend_products.entities;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +17,7 @@ public class Product {
   private Long id;
   private String name;
   private String description;
-  private Long price;
+  private BigDecimal price;
 
   public Long getId() {
     return id;
@@ -41,11 +43,11 @@ public class Product {
     this.description = description;
   }
 
-  public Long getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(Long price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 
