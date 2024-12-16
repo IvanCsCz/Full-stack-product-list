@@ -16,7 +16,7 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  private String description;
+  private String category;
   private BigDecimal price;
 
   public Long getId() {
@@ -35,12 +35,12 @@ public class Product {
     this.name = name;
   }
 
-  public String getDescription() {
-    return description;
+  public String getCategory() {
+    return category;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setCategory(String description) {
+    this.category = description;
   }
 
   public BigDecimal getPrice() {
