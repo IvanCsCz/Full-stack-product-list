@@ -1,6 +1,7 @@
 import { Product } from "../types";
 
 export type ProductListActions = 
+{ type: 'set-products', payload: {products: Product[]} } |
 { type: 'add-product', payload: {product: Product} } |
 { type: 'update-product', payload: {product: Product} } |
 { type: 'delete-product', payload: {id: Product['id']} } |
@@ -21,6 +22,13 @@ export const productListReducer = (
   state: ProductListState = initialProductListState,
   action: ProductListActions
 ) => {
+  if(action.type === 'set-products'){
+    return {
+      ...state,
+      products: [...action.payload.products]
+    }
+  }
+
   if(action.type === 'add-product'){
     return {
       ...state,
