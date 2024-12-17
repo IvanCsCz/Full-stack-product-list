@@ -8,13 +8,13 @@ function FormCreateProduct() {
         </div>
 
         <div className="mt-5">
-          <label htmlFor="base-input" className="block mb-2 font-medium">Price</label>
+          <label htmlFor="base-input" className="block mb-2 font-medium">Category</label>
           <input type="text" id="base-input" className="p-3 w-full block rounded-md shadow-md focus:ring-blue-500 focus:border-blue-500" />
         </div>
 
         <div className="mt-5">
-          <label htmlFor="message" className="block mb-2 font-medium">Description</label>
-          <textarea id="message" rows={4} className="p-3 w-full block rounded-md shadow-md focus:ring-blue-500 focus:border-blue-500 " placeholder="Leave a comment..."></textarea>
+          <label htmlFor="base-input" className="block mb-2 font-medium">Price</label>
+          <input type="text" id="base-input" className="p-3 w-full block rounded-md shadow-md focus:ring-blue-500 focus:border-blue-500" />
         </div>
 
         <input
