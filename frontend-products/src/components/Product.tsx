@@ -1,7 +1,13 @@
 import useProductList from "../hooks/useProductList"
+import { deleteProduct } from "../services/productListServices"
 
 function Product() {
   const {state, dispatch} = useProductList()
+
+  const handleRemove = (id: number) => {
+    deleteProduct(id)
+    dispatch({type:'delete-product', payload:{id}})
+  }
 
   return (
     <>
@@ -23,7 +29,7 @@ function Product() {
                 Edit
             </a>
             <a 
-              onClick={() => {dispatch({type:'delete-product', payload:{id: prod.id}})}} 
+              onClick={() => {handleRemove(prod.id)}} 
               className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">
                 Remove
             </a>

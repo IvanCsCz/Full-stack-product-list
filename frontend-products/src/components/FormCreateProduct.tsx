@@ -1,6 +1,8 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import useProductList from "../hooks/useProductList"
+import { createProduct, updateProduct } from "../services/productListServices"
 import { DraftProduct } from "../types"
+import CreateUpdateButton from "./CreateUpdateButton"
 import ErrorMessage from "./ErrorMessage"
 
 const productStateInitialState: DraftProduct = {
@@ -25,6 +27,8 @@ function FormCreateProduct() {
         category: selectedProduct.category,
         price: selectedProduct.price
       })
+    } else{
+      setProductState(productStateInitialState)
     }
   }, [isSelectedId, state,])
 
@@ -37,7 +41,7 @@ function FormCreateProduct() {
     })
   }
 
-  const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault()
 
     if(Object.values(productState).includes('')){
@@ -49,13 +53,14 @@ function FormCreateProduct() {
     setProductState(productStateInitialState)
 
     if(isSelectedId){
-      dispatch({type: 'update-product', payload:{product:productState}})
+    const updatedProduct = await updateProduct({...productState, id:state.selectedId})
+      dispatch({type: 'update-product', payload:{product:updatedProduct}})
       dispatch({type: 'reset-selectedId'})
       return
     }
 
-    dispatch({type: 'add-product', payload: {product: productState}})
-
+    const createdProduct = await createProduct(productState)
+    dispatch({type: 'add-product', payload: {product: createdProduct}})
 
   }
 
@@ -97,11 +102,7 @@ function FormCreateProduct() {
           />
         </div>
 
-        <input
-          type="submit"
-          className="mt-10 bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors rounded-lg"
-          value={isSelectedId ? 'Update' : 'Create'}
-        />
+        <CreateUpdateButton />
 
         {error && <ErrorMessage message={error} />}
     </form>

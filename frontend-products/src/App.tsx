@@ -1,16 +1,24 @@
-import { useEffect } from "react"
-import FormCreateProduct from "./components/FormCreateProduct"
-import ProductsTable from "./components/ProductsTable"
-import { PRODUCT_LIST } from "./data/Products"
-import useProductList from "./hooks/useProductList"
+import { useCallback, useEffect } from "react";
+import FormCreateProduct from "./components/FormCreateProduct";
+import ProductsTable from "./components/ProductsTable";
+import useProductList from "./hooks/useProductList";
+import { getProducts } from "./services/productListServices";
 
 function App() {
-  const productList = PRODUCT_LIST
   const {dispatch} = useProductList()
+  
+  const fetchProducts = useCallback(async () => {
+    try {
+      const products = await getProducts();
+      dispatch({ type: 'set-products', payload: { products } });
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch({type: 'set-products', payload:{products:productList}})
-  },[dispatch, productList])
+    fetchProducts()
+  },[fetchProducts])
 
   return (
     <div className="container mx-auto mt-14">

@@ -1,11 +1,9 @@
-import { PRODUCT_LIST } from "../data/Products";
-import { DraftProduct, Product } from "../types";
-const lastId:number = PRODUCT_LIST[4].id;
+import { Product } from "../types";
 
 export type ProductListActions = 
 { type: 'set-products', payload: {products: Product[]} } |
-{ type: 'add-product', payload: {product: DraftProduct} } |
-{ type: 'update-product', payload: {product: DraftProduct} } |
+{ type: 'add-product', payload: {product: Product} } |
+{ type: 'update-product', payload: {product: Product} } |
 { type: 'delete-product', payload: {id: Product['id']} } |
 { type: 'set-selectedId', payload: {selectedId: Product['id']} } |
 { type: 'reset-selectedId' }
@@ -34,7 +32,7 @@ export const productListReducer = (
   if(action.type === 'add-product'){
     return {
       ...state,
-      products: [...state.products, {id:lastId+1, ...action.payload.product}]
+      products: [...state.products, {...action.payload.product}]
     }
   }
 
@@ -42,7 +40,6 @@ export const productListReducer = (
     const filteredProducts = state.products.map(product => {
       if(product.id === state.selectedId){
         return {
-          id:lastId+1,
           ...action.payload.product
         }
       }
