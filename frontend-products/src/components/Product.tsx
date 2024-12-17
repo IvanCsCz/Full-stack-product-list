@@ -1,7 +1,7 @@
 import useProductList from "../hooks/useProductList"
 
 function Product() {
-  const {state} = useProductList()
+  const {state, dispatch} = useProductList()
 
   return (
     <>
@@ -17,8 +17,16 @@ function Product() {
             ${prod.price}
           </td>
           <td className="px-4 py-2">
-            <a href="#" className="font-medium text-blue-600 hover:underline">Edit</a>
-            <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
+            <a 
+              onClick={() => {dispatch({type:'set-selectedId', payload:{selectedId: prod.id}})}} 
+              className="font-medium text-blue-600 hover:underline">
+                Edit
+            </a>
+            <a 
+              onClick={() => {dispatch({type:'delete-product', payload:{id: prod.id}})}} 
+              className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">
+                Remove
+            </a>
           </td>
         </tr>
       ))}

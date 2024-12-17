@@ -4,3 +4,5 @@ export type Product = {
   category: string,
   price: number
 }
+
+export type DraftProduct = Omit<Product, 'id'>
