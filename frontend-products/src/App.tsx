@@ -1,7 +1,16 @@
+import { useEffect } from "react"
 import FormCreateProduct from "./components/FormCreateProduct"
 import ProductsTable from "./components/ProductsTable"
+import { PRODUCT_LIST } from "./data/Products"
+import useProductList from "./hooks/useProductList"
 
 function App() {
+  const productList = PRODUCT_LIST
+  const {dispatch} = useProductList()
+
+  useEffect(() => {
+    dispatch({type: 'set-products', payload:{products:productList}})
+  },[dispatch, productList])
 
   return (
     <div className="container mx-auto mt-14">
